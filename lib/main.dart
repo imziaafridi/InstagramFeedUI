@@ -26,6 +26,11 @@ class InstagramFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Instagram Feed"));
+    return const Scaffold(
+      body: Center(
+        child: Text("Instagram Feed"),
+      ),
+    );
   }
 }
+// today i wanna build instagram feed ui...
