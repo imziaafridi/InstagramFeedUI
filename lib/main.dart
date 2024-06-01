@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,14 +28,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const InstagramFeed(),
+      home: InstagramFeed(),
     );
   }
 }
 
 class InstagramFeed extends StatelessWidget {
-  const InstagramFeed({super.key});
-
+  InstagramFeed({super.key});
+  var indexImg = ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -67,24 +68,28 @@ class InstagramFeed extends StatelessWidget {
         body: Column(
           children: [
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             const CustomListViewBuilder(),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             const PostListTileInstaFeed(
-              leadImg: 'assets/images/profile-05.jpg',
+              leadImg: 'assets/images/profile-07.jpg',
               title: "Joshua_L",
               subTitle: "Tokyo, Japan",
               trailImg: "assets/icons/Shape.png",
             ),
-            const InstaPost(),
-            Container(
-              height: 150,
-              width: 100,
-              color: AppPaint.BLACK,
+            InstaPost(
+              images: instaPostImageList,
+              indexImg: indexImg,
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            // PostReactions(
+            //   indexImg: indexImg,
+            // ),
           ],
         ),
       ),
@@ -92,47 +97,53 @@ class InstagramFeed extends StatelessWidget {
   }
 }
 
-class InstaPost extends StatelessWidget {
-  const InstaPost({
+class PostReactions extends StatelessWidget {
+  PostReactions({
     super.key,
+    this.indexImg,
   });
-
+  ValueNotifier<int>? indexImg;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Stack(
-        fit: StackFit.expand,
+    return Container(
+      color: AppPaint.ORANGE,
+      height: 50,
+      width: double.infinity,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ListView.builder(
-            itemCount: instaPostImageList.length,
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              var image = instaPostImageList[index];
-              return SizedBox(
-                width: 400,
-                child: InstaPostImage(
-                  img: image.img,
-                  bf: BoxFit.cover,
-                ),
-              );
-            },
+          const CustomImage(
+            assetImg: 'assets/icons/Tab 4.png',
           ),
-          Positioned(
-            right: 6,
-            top: 6,
-            child: Container(
+          const CustomImage(
+            assetImg: 'assets/icons/chat.png',
+            h: 26,
+            color: AppPaint.WHITE,
+          ),
+          15.pw,
+          const CustomImage(
+            assetImg: 'assets/icons/Messanger.png',
+          ),
+          const Spacer(),
+          ...List.generate(instaPostImageList.length, (int index) {
+            return Container(
+              height: 10,
+              width: 10,
               decoration: BoxDecoration(
-                color: AppPaint.GREY_LIGHT,
-                borderRadius: BorderRadius.circular(
-                  15,
-                ),
+                color: index == indexImg!.value
+                    ? AppPaint.BLUE
+                    : AppPaint.GREY_LIGHT,
+                shape: BoxShape.circle,
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                child: CustomText(title: '1/3'),
-              ),
-            ),
+            );
+          }),
+          const Spacer(),
+          const CustomImage(
+            assetImg: 'assets/icons/Save.png',
+          ),
+          const SizedBox(
+            width: 20,
           ),
         ],
       ),
@@ -140,17 +151,166 @@ class InstaPost extends StatelessWidget {
   }
 }
 
+extension pad on num {
+  SizedBox get ph => SizedBox(
+        height: toDouble(),
+      );
+  SizedBox get pw => SizedBox(
+        width: toDouble(),
+      );
+}
+
+class InstaPost extends StatefulWidget {
+  InstaPost({
+    super.key,
+    required this.images,
+    this.indexImg, // List of image URLs or objects
+  });
+  ValueNotifier<int>? indexImg;
+  final List<InstaPostImage> images;
+  @override
+  State<InstaPost> createState() => _InstaPostState();
+}
+
+class _InstaPostState extends State<InstaPost> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _pageController = PageController(initialPage: widget.indexImg!.value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 350,
+      child: Stack(
+        fit: StackFit.loose,
+        children: [
+          _buildImageCarousel(widget.images),
+          _buildPostIndicator(widget.images.length),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageCarousel(
+    List<InstaPostImage> images,
+  ) {
+    return SizedBox(
+      height: 320,
+      child: PageView.builder(
+        controller: _pageController,
+        itemCount: images.length,
+        onPageChanged: (value) {
+          setState(() {
+            widget.indexImg!.value = value;
+            debugPrint('img-indx: ${widget.indexImg!.value}');
+          });
+        },
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final image = images[index];
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              InstaPostImage(
+                img: image.img,
+                bf: BoxFit.cover,
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildPostIndicator(
+    int imageCount,
+  ) {
+    return Positioned(
+      right: 6,
+      top: 6,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppPaint.GREY_LIGHT,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+          child: CustomText(title: '${widget.indexImg!.value + 1}/$imageCount'),
+        ),
+      ),
+    );
+  }
+}
+
+// class InstaPost extends StatelessWidget {
+//   const InstaPost({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       fit: StackFit.expand,
+//       children: [
+//         SizedBox(
+//           height: 300,
+//           child: PageView.builder(
+//             itemCount: instaPostImageList.length,
+//             scrollDirection: Axis.horizontal,
+//             itemBuilder: (context, index) {
+//               var image = instaPostImageList[index];
+//               return InstaPostImage(
+//                 img: image.img,
+//                 bf: BoxFit.cover,
+//                 // h: 300,
+//               );
+//             },
+//           ),
+//         ),
+//         Positioned(
+//           right: 6,
+//           top: 6,
+//           child: Container(
+//             decoration: BoxDecoration(
+//               color: AppPaint.GREY_LIGHT,
+//               borderRadius: BorderRadius.circular(
+//                 15,
+//               ),
+//             ),
+//             child: const Padding(
+//               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+//               child: CustomText(title: '1/3'),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
 class CustomImage extends StatelessWidget {
-  const CustomImage({super.key, required this.assetImg});
+  const CustomImage({
+    super.key,
+    required this.assetImg,
+    this.color,
+    this.h,
+  });
 
   final String assetImg;
+  final Color? color;
+  final double? h;
 
   @override
   Widget build(BuildContext context) {
     return Image.asset(
       assetImg,
-      // fit: BoxFit.contain,
-      // height: 22,
+      color: color,
+      height: h,
     );
   }
 }

@@ -28,7 +28,6 @@ class PostListTileInstaFeed extends StatelessWidget {
           child: Image.asset(
             leadImg,
             fit: BoxFit.cover,
-            // height: 40,
           ),
         ),
       ),
