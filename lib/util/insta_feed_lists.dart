@@ -16,7 +16,7 @@ List<InstaStoryItems> storyInstagramList = [
   ),
   const InstaStoryItems(
     image: "assets/images/profile-07.jpg",
-    name: "OmarOwl",
+    name: "Joshua_L",
     isLive: false,
   ),
   const InstaStoryItems(
@@ -38,7 +38,7 @@ List<InstaStoryItems> storyInstagramList = [
 
 List<InstaPostImage> instaPostImageList = [
   const InstaPostImage(
-    img: 'assets/images/Rectangle.png',
+    img: 'assets/images/post-05.jpg',
   ),
   const InstaPostImage(
     img: 'assets/images/post-02.jpg',

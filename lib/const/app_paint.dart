@@ -13,7 +13,7 @@ class AppPaint {
   static const BLUE = Color.fromARGB(255, 56, 151, 240);
   static const BLACK_MODERATE = Color.fromARGB(255, 18, 18, 18);
   static const BLACK = Color.fromARGB(255, 0, 0, 0);
-  static const GREY_LIGHT = Color.fromARGB(228, 36, 36, 36);
+  static const GREY_LIGHT = Color.fromARGB(221, 76, 74, 74);
 
   static const PURPLE = Color.fromARGB(255, 200, 25, 231);
 
