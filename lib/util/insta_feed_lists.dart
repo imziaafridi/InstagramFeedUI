@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:instagram_feed_ui/pages/view/instafeed/parts/insta_story_it.dart';
-
 import '../pages/view/instafeed/parts/insta_post_image.dart';
+import '../pages/view/instafeed/parts/insta_story_it.dart';
 
 List<InstaStoryItems> storyInstagramList = [
   const InstaStoryItems(
