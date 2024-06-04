@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:instagram_feed_ui/const/app_paint.dart';
 
@@ -11,12 +12,17 @@ class CommentTextInstaFeed extends StatelessWidget {
       text: TextSpan(
         children: <TextSpan>[
           _customTextStyleBuilderForTxtSpan(
-              text: 'Joshua_L\t', fwT: FontWeight.bold),
+            text: 'Joshua_L\t',
+            fwT: FontWeight.bold,
+            sT: 14.sp,
+          ),
           _customTextStyleBuilderForTxtSpan(
             text: 'The game in Japan wa amazing and i want to\n',
+            sT: 14.sp,
           ),
           _customTextStyleBuilderForTxtSpan(
             text: 'share some photos',
+            sT: 14,
           ),
         ],
       ),

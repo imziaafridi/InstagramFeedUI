@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instagram_feed_ui/const/app_paint.dart';
 import 'package:instagram_feed_ui/util/extensions.dart';
 import 'package:instagram_feed_ui/util/insta_feed_lists.dart';
@@ -21,8 +22,7 @@ class _PostReactionsState extends State<PostReactions> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // color: AppPaint.ORANGE,
-      height: 50,
+      height: 50.h,
       width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -35,9 +35,9 @@ class _PostReactionsState extends State<PostReactions> {
             ),
           ),
 
-          const CustomImage(
+          CustomImage(
             assetImg: 'assets/icons/Comment.png',
-            h: 24,
+            h: 24.h,
             color: AppPaint.WHITE,
           ),
           20.pw,
@@ -45,14 +45,18 @@ class _PostReactionsState extends State<PostReactions> {
             assetImg: 'assets/icons/Messanger.png',
           ),
           // const Spacer(),
-          70.pw,
+          60.pw,
           ...List.generate(instaPostImageList.length, (int index) {
             return ValueListenableBuilder<int>(
               valueListenable: widget.indexImg!,
               builder: (context, value, _) {
-                return Container(
-                  width: 8,
-                  height: 8,
+                return AnimatedContainer(
+                  curve: Curves.easeIn,
+                  duration: const Duration(
+                    seconds: 2,
+                  ),
+                  width: 8.w,
+                  height: 8.h,
                   margin: const EdgeInsets.symmetric(horizontal: 1.6),
                   decoration: BoxDecoration(
                     color: value == index ? AppPaint.BLUE : AppPaint.GREY_LIGHT,
@@ -67,8 +71,8 @@ class _PostReactionsState extends State<PostReactions> {
           const CustomImage(
             assetImg: 'assets/icons/Save.png',
           ),
-          const SizedBox(
-            width: 20,
+          SizedBox(
+            width: 20.w,
           ),
         ],
       ),

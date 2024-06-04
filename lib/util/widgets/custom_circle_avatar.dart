@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:instagram_feed_ui/const/app_paint.dart';
 import 'package:instagram_feed_ui/main.dart';
@@ -13,14 +15,12 @@ class CustomCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 66,
+      width: 68,
       height: isLive ? 70 : 68,
       child: Stack(
-        fit: StackFit.loose,
+        fit: StackFit.expand,
         children: [
           Container(
-            // width: 65,
-            // height: 65,
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -36,23 +36,21 @@ class CustomCircleAvatar extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: Color.fromARGB(94, 158, 158, 158),
-                  spreadRadius: 5,
-                  blurRadius: 4,
-                  offset: Offset(0, 0),
+                  spreadRadius: 2.5,
+                  blurRadius: 30,
+                  offset: Offset(0, 4),
                 ),
               ],
-              // border: Border.all(width: 1.0),
             ),
             child: Padding(
               padding: const EdgeInsets.all(2.6),
               child: Container(
-                // width: 100,
-                // height: 100,
                 decoration: BoxDecoration(
-                  // color: AppPaint.BLACK,
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppPaint.BLACK, width: 3.6),
-                  // border: Border.all(width: 1.0),
+                  border: Border.all(
+                    color: AppPaint.BLACK,
+                    width: 4.0,
+                  ),
                 ),
                 child: child,
               ),
@@ -60,10 +58,9 @@ class CustomCircleAvatar extends StatelessWidget {
           ),
           if (isLive)
             Positioned(
-              top: 50,
+              top: 52,
               left: 15,
               right: 20,
-              // bottom: 0,
               child: Container(
                 padding: const EdgeInsets.all(1),
                 alignment: Alignment.center,
