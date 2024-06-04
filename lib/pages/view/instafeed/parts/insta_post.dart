@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instagram_feed_ui/const/app_paint.dart';
 import 'package:instagram_feed_ui/util/widgets/custom_text.dart';
 import 'insta_post_image.dart';
@@ -17,19 +18,35 @@ class InstaPost extends StatefulWidget {
   State<InstaPost> createState() => _InstaPostState();
 }
 
-class _InstaPostState extends State<InstaPost> {
+class _InstaPostState extends State<InstaPost> with TickerProviderStateMixin {
   late PageController _pageController;
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: widget.indexImg!.value);
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..forward();
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.bounceIn,
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 340.h,
       child: Stack(
         fit: StackFit.loose,
         children: [
@@ -44,7 +61,7 @@ class _InstaPostState extends State<InstaPost> {
     List<InstaPostImage> images,
   ) {
     return SizedBox(
-      height: 320,
+      height: 310.h,
       child: PageView.builder(
         controller: _pageController,
         itemCount: images.length,
@@ -57,16 +74,13 @@ class _InstaPostState extends State<InstaPost> {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           final image = images[index];
-          return Stack(
-            fit: StackFit.loose,
-            children: [
-              InstaPostImage(
-                img: image.img,
-                bf: BoxFit.cover,
-                w: double.infinity,
-                h: 300,
-              ),
-            ],
+          return FadeTransition(
+            opacity: _animation,
+            child: InstaPostImage(
+              img: image.img,
+              bf: BoxFit.cover,
+              w: double.infinity,
+            ),
           );
         },
       ),
@@ -77,15 +91,15 @@ class _InstaPostState extends State<InstaPost> {
     int imageCount,
   ) {
     return Positioned(
-      right: 6,
-      top: 6,
+      right: 6.w,
+      top: 6.h,
       child: Container(
         decoration: BoxDecoration(
           color: AppPaint.GREY_LIGHT,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
           child: CustomText(title: '${widget.indexImg!.value + 1}/$imageCount'),
         ),
       ),

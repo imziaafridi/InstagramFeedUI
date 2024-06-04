@@ -1,3 +1,9 @@
+import 'package:flutter/material.dart';
+import '../pages/add_post.dart';
+import '../pages/favourites.dart';
+import '../pages/profile.dart';
+import '../pages/search.dart';
+import '../pages/view/instafeed/instagram_feed.dart';
 import '../pages/view/instafeed/parts/insta_post_image.dart';
 import '../pages/view/instafeed/parts/insta_story_it.dart';
 
@@ -44,4 +50,12 @@ List<InstaPostImage> instaPostImageList = [
   const InstaPostImage(
     img: 'assets/images/post-04.jpg',
   ),
+];
+
+List<Widget> tabs = [
+  InstagramFeed(),
+  const Search(),
+  const AddPost(),
+  const Favourites(),
+  const Profile(),
 ];

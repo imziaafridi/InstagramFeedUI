@@ -179,6 +179,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.12.0"
+  parallax_effect:
+    dependency: "direct main"
+    description:
+      name: parallax_effect
+      sha256: c42b0976eb691eb0babaad57c65e05d8c99142b3779bb5c0fd78bcd86344fb7a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   path:
     dependency: transitive
     description:
@@ -251,14 +259,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
-  skeletonizer:
-    dependency: "direct main"
-    description:
-      name: skeletonizer
-      sha256: "50c3fdf3d1bf6182129c03b53bc7ff6dca10ca0b8e71ccdee148b9322caabdba"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2+1"
   sky_engine:
     dependency: transitive
     description: flutter

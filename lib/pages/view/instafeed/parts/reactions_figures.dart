@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instagram_feed_ui/util/extensions.dart';
 import 'package:instagram_feed_ui/util/widgets/custom_row.dart';
 import 'package:instagram_feed_ui/util/widgets/custom_text.dart';
@@ -12,29 +13,38 @@ class ReactionsFigures extends StatelessWidget {
     return CustomRow(
       mainAlign: MainAxisAlignment.start,
       childern: [
-        const UserAvatar(
+        UserAvatar(
           img: 'assets/images/profile-06.jpg',
-          h: 25,
-          w: 25,
+          h: 20.h,
+          w: 20.w,
         ),
         6.pw,
-        const CustomText(
+        CustomText(
           title: 'Liked by',
+          size: 14.sp,
         ),
         4.pw,
-        const CustomText(
+        CustomText(
           title: 'craig_love',
           fw: FontWeight.bold,
+          size: 14.sp,
         ),
         4.pw,
-        const CustomText(title: 'and'),
+        CustomText(
+          title: 'and',
+          size: 14.sp,
+        ),
         4.pw,
-        const CustomText(
+        CustomText(
           title: '44,686',
           fw: FontWeight.bold,
+          size: 14.sp,
         ),
         4.pw,
-        const CustomText(title: 'others'),
+        CustomText(
+          title: 'others',
+          size: 14.sp,
+        ),
       ],
     );
   }

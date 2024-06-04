@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^6.2.1
   flutter_screenutil: ^5.9.1
-  skeletonizer: ^1.1.2+1
+  parallax_effect: ^0.0.3
 
 dev_dependencies:
   flutter_test:
