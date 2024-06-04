@@ -22,7 +22,7 @@ Dart is typically bundled with Flutter, but ensure it is installed and properly 
 
 ### Installation
 #### 1. Clone the repository:
-``` git clone https://github.com/imziaurrehman/instagram_feed_ui_flutter.git ```
+``` git clone https://github.com/imziaurrehman/InstagramFeedUI.git ```
 
 #### 2. Navigate to the project directory:
 ``` cd instagram_feed_ui_flutter ```
